@@ -6,7 +6,11 @@
 #include <thread>
 #include <mutex>
 
+const int NUM_GUESTS = 5;
+
 int main(void)
 {
+    using namespace std;
+
     return 0;
 }
