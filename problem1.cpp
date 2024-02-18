@@ -7,8 +7,14 @@
 #include <mutex>
 
 const int NUM_GUESTS = 5;
+bool cupcake = true;
 
-void guest(int id)
+void cupcakeCheck(bool cupcake)
+{
+    
+}
+
+void enter(int id)
 {
 
 }
@@ -22,10 +28,10 @@ int main(void)
     thread guests[NUM_GUESTS];
 
     for (int i = 0; i < NUM_GUESTS; ++i)
-        threads[i] = thread(guest, i + 1);
+        guests[i] = thread(enter, i + 1);
 
     for (int i = 0; i < NUM_GUESTS; ++i)
-        threads[i].join();
+        guests[i].join();
     
     cout << "All guests have visited the labyrinth." << endl;
 
