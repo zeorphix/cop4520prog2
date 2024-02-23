@@ -24,6 +24,9 @@ int randomNumber(int min, int max)
     mt19937 gen(rd());
     uniform_int_distribution<> distr(min, max);
 
+    for(int n=0; n<40; ++n)
+        std::cout << distr(gen) << ' '; // generate numbers
+
     return distr(gen);
 }
   
@@ -32,16 +35,28 @@ void cupcakeCheck(void)
 
 }
 
-void enter(int id)
+void enter(int number)
 {
     using namespace std;
 
-    cout << "Guest " << id << " is entering the labyrinth." << endl;
+    lock_guard<mutex> lock(mtx);
 
-    if (cupcake)
-    {
-        cout << "Guest " << id << " ate the cupcake." << endl;
-    }
+    cout << "Guest " << number << " is entering the labyrinth." << endl;
+
+    // while (currentVisited < NUM_GUESTS)
+    // {
+    //     int rng = randomNumber(0, NUM_GUESTS);
+
+    //     allVisited[rng] = true;
+
+    //     cout << "The random number is " << rng << endl;
+    // }
+
+    // if (cupcake)
+    // {
+    //     cout << "Guest " << number << " ate the cupcake." << endl;
+    // }
+
 }
 
 int main(void)
@@ -50,22 +65,13 @@ int main(void)
 
     cout << "Preparing " << NUM_GUESTS << " guests to visit the labyrinth..." << endl;
 
-    while (currentVisited < NUM_GUESTS)
-    {
-        int rng = randomNumber(0, NUM_GUESTS);
-
-        allVisited[rng] = true;
-
-        cout << "The random number is " << rng << endl;
-    }
-
-    thread guests[NUM_GUESTS];
+    vector<thread> guests;
 
     for (int i = 0; i < NUM_GUESTS; ++i)
-        guests[i] = thread(enter, i + 1);
-
-    for (int i = 0; i < NUM_GUESTS; ++i)
-        guests[i].join();
+        guests.push_back(thread(enter, i + 1));   
+    
+    for (auto& thread : guests)
+        thread.join();
     
     cout << "All " << NUM_GUESTS << " guests have visited the labyrinth." << endl;
 
