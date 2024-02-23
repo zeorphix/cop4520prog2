@@ -1,6 +1,6 @@
 // Evan Tieu
 // Programming Assignment 2
-// Problem 1: Minotaur’s Birthday Party
+// Problem 2: Minotaur’s Crystal Vase
 // COP 4520, Spring 2024
 
 #include <iostream>
