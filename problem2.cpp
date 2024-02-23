@@ -3,23 +3,24 @@
 // Problem 2: Minotaur’s Crystal Vase
 // COP 4520, Spring 2024
 
+#include <condition_variable>
 #include <iostream>
-#include <thread>
 #include <mutex>
+#include <queue>
+#include <thread>
 
-std::array<bool, 
 const int NUM_GUESTS = 5;
-bool cupcake = true;
-mutex mtx;
+std::queue<int> guestQueue;
+std::condition_variable cv;
+std::mutex mtx;
 
-void cupcakeCheck(bool cupcake)
+void enter(int number)
 {
+    using namespace std;
 
-}
+    lock_guard<mutex> lock(mtx);
 
-void enter(int id)
-{
-
+    cout << "Guest " << number << " is entering the labyrinth." << endl;
 }
 
 int main(void)
@@ -33,9 +34,9 @@ int main(void)
     for (int i = 0; i < NUM_GUESTS; ++i)
         guests[i] = thread(enter, i + 1);
 
-    for (int i = 0; i < NUM_GUESTS; ++i)
-        guests[i].join();
-    
+    for (auto& thread : guests)
+        thread.join();
+
     cout << "All guests have visited the labyrinth." << endl;
 
     return 0;
