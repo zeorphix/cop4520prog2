@@ -12,34 +12,19 @@
 const int NUM_GUESTS = 5;
 bool AVAILABLE = true;
 std::queue<int> guestQueue;
-std::condition_variable condVar;
+std::condition_variable cv;
 std::mutex mtx;
 
 void enter(int number)
 {
     using namespace std;
 
-    {
-        lock_guard<mutex> lock(mtx);
-        guestQueue.push(number);
-        condVar.notify_one();
-    }
+    unique_lock<mutex> lock(mtx);
 
-    unique_lock<mutex> ulock(mtx);
-
-    ulock.unlock();
-    
-    condVar.wait(ulock, [number] { return guestQueue.front() == number && AVAILABLE; });
+    while (!AVAILABLE)
+        cv.wait(lock);
 
     cout << "Guest " << number << " is entering the showroom." << endl;
-
-    lock_guard<mutex> lg(mtx);
-
-    AVAILABLE = false;
-
-    if (number == NUM_GUESTS) {
-        condVar.notify_one();
-    }
 }
 
 int main(void)
