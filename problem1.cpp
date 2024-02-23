@@ -3,16 +3,18 @@
 // Problem 1: Minotaur’s Birthday Party
 // COP 4520, Spring 2024
 
+#include <array>
 #include <iostream>
 #include <thread>
 #include <random>
 #include <mutex>
 
-std::array<bool, NUM_GUESTS> allVisited;
 const int NUM_GUESTS = 5;
+int currentVisited = 0;
 bool cupcake = true;
 
-mutex mtx;
+std::array<bool, NUM_GUESTS> allVisited;
+std::mutex mtx;
 
 int randomNumber(int min, int max)
 {
@@ -20,11 +22,11 @@ int randomNumber(int min, int max)
 
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distibrution<> distr(min, max);
+    uniform_int_distribution<> distr(min, max);
 
-    return distr(gen); 
+    return distr(gen);
 }
-
+  
 void cupcakeCheck(void)
 {
 
@@ -48,12 +50,19 @@ int main(void)
 
     cout << "Preparing " << NUM_GUESTS << " guests to visit the labyrinth..." << endl;
 
+    while (currentVisited < NUM_GUESTS)
+    {
+        int rng = randomNumber(0, NUM_GUESTS);
+
+        allVisited[rng] = true;
+
+        cout << "The random number is " << rng << endl;
+    }
+
     thread guests[NUM_GUESTS];
 
     for (int i = 0; i < NUM_GUESTS; ++i)
         guests[i] = thread(enter, i + 1);
-
-    while 
 
     for (int i = 0; i < NUM_GUESTS; ++i)
         guests[i].join();
