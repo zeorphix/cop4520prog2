@@ -1,7 +1,7 @@
 # cop4520prog2
 cop4520 programming assignment 2
 
-Problem 1: Minotaur’s Birthday Party
+# Problem 1: Minotaur’s Birthday Party
 
 - Approach
 
@@ -15,7 +15,7 @@ Problem 1: Minotaur’s Birthday Party
 3. Compile by typing 'g++ problem1.cpp'
 4. Execute the file by typing './a.out'
 
-Problem 2: Minotaur’s Crystal Vase
+# Problem 2: Minotaur’s Crystal Vase
 
 - Approach
 
