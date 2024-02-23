@@ -10,7 +10,10 @@ Problem 1: Minotaur’s Birthday Party
 
 
 - Instructions
-
+1. Download 'problem1.cpp'
+2. Move file to directory of your choice
+3. Compile by typing 'g++ problem1.cpp'
+4. Execute the file by typing './a.out'
 
 Problem 2: Minotaur’s Crystal Vase
 
@@ -26,4 +29,7 @@ Strategy 3 is the best implementation for the guests, as it provides communicati
 
 
 - Instructions
-
+1. Download 'problem2.cpp'
+2. Move file to directory of your choice
+3. Compile by typing 'g++ problem2.cpp'
+4. Execute the file by typing './a.out'
