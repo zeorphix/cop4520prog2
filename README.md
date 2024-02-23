@@ -4,7 +4,7 @@ cop4520 programming assignment 2
 # Problem 1: Minotaur’s Birthday Party
 
 - Approach
-
+In my program I use random number generator to simulate the randomness of the Minotaur picking guests.
 
 - Experimental Evaluation
 
