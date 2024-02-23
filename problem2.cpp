@@ -10,24 +10,37 @@
 #include <thread>
 
 const int NUM_GUESTS = 5;
+bool AVAILABLE = true;
 std::queue<int> guestQueue;
-std::condition_variable cv;
-std::mutex mtx;
+std::condition_variable condVar;
+std::mutex mutex;
 
 void enter(int number)
 {
     using namespace std;
 
-    lock_guard<mutex> lock(mtx);
+    {
+        lock_guard<mutex> lock(mutex);
+        guestQueue.push(number);
+        condVar.notify_one();
+    }
 
-    cout << "Guest " << number << " is entering the labyrinth." << endl;
+    lock_guard<mutex> lock(mutex);
+
+    condVar.wait(lock, [number] { return guestQueue.front() == number && AVAILABLE});
+
+    cout << "Guest " << number << " is entering the showroom." << endl;
+
+    lock_guard<mutex> lg<mutex>;
+
+    AVAILABLE = false;
 }
 
 int main(void)
 {
     using namespace std;
 
-    cout << "Preparing " << NUM_GUESTS << " guests to visit the labyrinth..." << endl;
+    cout << "Preparing " << NUM_GUESTS << " guests to visit the showroom..." << endl;
 
     thread guests[NUM_GUESTS];
 
@@ -37,7 +50,7 @@ int main(void)
     for (auto& thread : guests)
         thread.join();
 
-    cout << "All guests have visited the labyrinth." << endl;
+    cout << "All guests have visited the showroom." << endl;
 
     return 0;
 }
