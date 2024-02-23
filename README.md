@@ -20,7 +20,7 @@ Strategy 1 is simple and allows for flexibility but lacks consistency or communi
 
 Strategy 2 is a more sufficient implementation by using 'signs' to keep at most one guest in the room. This greatly decreases chances of the vase being broken, but still has no consistency or communication, since guests could gather around the door waiting for the sign to turn back to 'AVAILABLE', and no one would know who would go next.
 
-
+Strategy 3 is the best implementation for the guests, as it provides communication between them--when the guests exit, they notify the next guest to come in. A queue also keeps at most one guest in the room, which greatly decreases the chance of the vase breaking due to accidents.
 
 - Experimental Evaluation
 
